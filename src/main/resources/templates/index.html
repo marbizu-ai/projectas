@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org/1999/xhtml">
+
+<head th:replace="~{layout/plantilla :: head}">
+    <title>GameShack - Productos</title>
+</head>
+
+<body>
+    <header th:replace="~{layout/plantilla :: header}">
+    </header>
+
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Bienvenido a GameShack</h1>
+        <p class="text-center">Tu tienda de videojuegos favorita. Encuentra los juegos más populares y novedades.</p>
+
+        <h2 class="mt-5">Nuestros Productos</h2>
+        <div class="row">
+            <div class="col-md-4" th:each="producto : ${productos}">
+                <div class="card mb-4">
+                    <img src="image-path" class="card-img-top" alt="Imagen del producto">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${producto.nombre}">Nombre del producto</h5>
+                        <p class="card-text" th:text="${producto.descripcion}">Descripción del producto</p>
+                        <p class="card-text">Precio: $<span th:text="${producto.precio}">Precio</span></p>
+                        <a th:href="@{/producto/{id}(id=${producto.id})}" class="btn btn-primary">Ver Detalles</a>
+                        <form th:action="@{/carrito/agregar}" method="post" class="mt-2">
+                            <input type="hidden" th:value="${producto.id}" name="productoId"/>
+                            <button type="submit" class="btn btn-secondary">Agregar al carrito</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer th:replace="~{layout/plantilla :: footer}">
+    </footer>
+</body>
+
+</html>
